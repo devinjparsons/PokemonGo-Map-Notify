@@ -1,0 +1,8 @@
+{
+    'unique_name': {
+        'url': 'http://PokemonGo-Map-URL-Here/raw_data',
+        'email': 'notifymeemail@somewhere.com',
+        'from_email': 'someaddrtosendfrom@somewhere.com',
+        'list': []
+    }
+}
