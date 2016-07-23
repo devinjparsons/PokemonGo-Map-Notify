@@ -71,6 +71,11 @@ def send_notification(pokemon, email, fromaddr):
     SENT_ALERTS.append(pokemon)
 
 if __name__ == '__main__':
+    logging.info('Starting PokemonGo-Map-Notify')
     while 1:
-        main()
-        sleep(15)
+        try:
+            main()
+            sleep(15)
+        except:
+            sleep(45)
+            pass
