@@ -9,7 +9,7 @@ import os
 import smtplib
 
 
-DEFAULT_LIST = ['Dragonite', 'Pikachu', 'Snorlax', 'Aerodactyl', 'Venusaur', 'Charizard', 'Clefable', 'Tauros', 'Omastar', 'Ditto', 'Articuno', 'Zapdos', 'Moltres', 'Mewtwo', 'Mew']
+DEFAULT_LIST = ['Dragonite', 'Snorlax', 'Aerodactyl', 'Venusaur', 'Charizard', 'Clefable', 'Omastar', 'Ditto', 'Articuno', 'Zapdos', 'Moltres', 'Mewtwo', 'Mew']
 SENT_ALERTS = []
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(module)11s] [%(levelname)7s] %(message)s')
 logging.getLogger("requests").setLevel(logging.WARNING)
