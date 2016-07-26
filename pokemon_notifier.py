@@ -36,9 +36,11 @@ def main():
             raw_data = []
 
         for pokemon in raw_data['pokemons']:
+            pokemon['trainer'] = name
             if check_for_pokemon(pokemon, poke_list):
                 if email != '':
-                    send_notification(pokemon, email, fromemail)
+                    if not quiet_time(config[name]):
+                        send_notification(pokemon, email, fromemail)
 
 
 def check_for_pokemon(pokemon, poke_list):
@@ -46,6 +48,14 @@ def check_for_pokemon(pokemon, poke_list):
         return pokemon not in SENT_ALERTS
     else:
         return False
+
+
+def quiet_time(config):
+    start = config['quiet_start']
+    end = config['quiet_end']
+    nowhour = datetime.now().hour
+    logging.info('{0} -- {1} -- {2}'.format(start, nowhour, end))
+    return nowhour >= start and nowhour < end
 
 
 def send_notification(pokemon, email, fromaddr):
@@ -61,9 +71,6 @@ def send_notification(pokemon, email, fromaddr):
         "",
         "{0} Disapears at {1}. https://www.google.com/maps/dir/Current+Location/{2},{3}".format(pokemon['pokemon_name'], datestr, pokemon['latitude'], pokemon['longitude'])
         ])
-
-    server = smtplib.SMTP('smtp.gmail.com:587')
-    server.ehlo()
     server.starttls()
     server.login(fromaddr, gmailcreds['password'])
     server.sendmail(fromaddr, email, msg)
@@ -77,5 +84,6 @@ if __name__ == '__main__':
             main()
             sleep(15)
         except:
+            logging.error('Error running app.', exc_info=True)
             sleep(45)
             pass
