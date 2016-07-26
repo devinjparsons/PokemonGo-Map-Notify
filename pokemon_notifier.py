@@ -71,6 +71,8 @@ def send_notification(pokemon, email, fromaddr):
         "",
         "{0} Disapears at {1}. https://www.google.com/maps/dir/Current+Location/{2},{3}".format(pokemon['pokemon_name'], datestr, pokemon['latitude'], pokemon['longitude'])
         ])
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.ehlo()
     server.starttls()
     server.login(fromaddr, gmailcreds['password'])
     server.sendmail(fromaddr, email, msg)
