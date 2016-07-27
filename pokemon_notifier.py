@@ -19,15 +19,19 @@ CUR_DIR = os.path.dirname(os.path.realpath(__file__))
 def main():
     with open('{0}/config.json'.format(CUR_DIR), 'r') as f:
         config = json.load(f)
-
     for name in config.keys():
+        user_list = []
+        poke_list = []
         url = config[name]['url']
         email = config[name]['email']
         user_list = config[name]['list']
         fromemail = config[name]['from_email']
         poke_list = DEFAULT_LIST
-        poke_list.extend(user_list)
-
+        if len(user_list) > 0:
+            for poke in user_list:
+                poke_list.append(poke)
+        logging.info(name)
+        logging.info(poke_list)
         response = requests.get(url)
 
         try:
@@ -54,7 +58,6 @@ def quiet_time(config):
     start = config['quiet_start']
     end = config['quiet_end']
     nowhour = datetime.now().hour
-    logging.info('{0} -- {1} -- {2}'.format(start, nowhour, end))
     return nowhour >= start and nowhour < end
 
 
