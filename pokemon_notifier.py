@@ -9,7 +9,7 @@ import os
 import smtplib
 
 
-DEFAULT_LIST = ['Dragonite', 'Snorlax', 'Aerodactyl', 'Venusaur', 'Charizard', 'Omastar', 'Ditto', 'Articuno', 'Zapdos', 'Moltres', 'Mewtwo', 'Mew', 'Blastoise', 'Kabutops', 'Grimer', 'Koffing', 'Muk', 'Weezing']
+DEFAULT_LIST = ['Dragonite', 'Snorlax', 'Aerodactyl', 'Venusaur', 'Charizard', 'Omastar', 'Ditto', 'Articuno', 'Zapdos', 'Moltres', 'Mewtwo', 'Mew', 'Blastoise', 'Kabutops', 'Grimer', 'Muk', 'Weezing']
 SENT_ALERTS = []
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(module)11s] [%(levelname)7s] %(message)s')
 logging.getLogger("requests").setLevel(logging.WARNING)
@@ -23,10 +23,10 @@ def main():
     for name in config.keys():
         url = config[name]['url']
         email = config[name]['email']
-        poke_list = config[name]['list']
+        user_list = config[name]['list']
         fromemail = config[name]['from_email']
-        if len(poke_list) == 0:
-            poke_list = DEFAULT_LIST
+        poke_list = DEFAULT_LIST
+        poke_list.extend(user_list)
 
         response = requests.get(url)
 
