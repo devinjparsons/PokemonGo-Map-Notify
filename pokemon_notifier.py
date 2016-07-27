@@ -9,7 +9,6 @@ import os
 import smtplib
 
 
-DEFAULT_LIST = ['Dragonite', 'Snorlax', 'Aerodactyl', 'Venusaur', 'Charizard', 'Omastar', 'Ditto', 'Articuno', 'Zapdos', 'Moltres', 'Mewtwo', 'Mew', 'Blastoise', 'Kabutops', 'Grimer', 'Muk', 'Weezing']
 SENT_ALERTS = []
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(module)11s] [%(levelname)7s] %(message)s')
 logging.getLogger("requests").setLevel(logging.WARNING)
@@ -20,8 +19,8 @@ def main():
     with open('{0}/config.json'.format(CUR_DIR), 'r') as f:
         config = json.load(f)
     for name in config.keys():
-        user_list = []
-        poke_list = []
+        DEFAULT_LIST = ['Dragonite', 'Snorlax', 'Aerodactyl', 'Venusaur', 'Charizard', 'Omastar', 'Ditto', 'Articuno', 'Zapdos', 'Moltres', 'Mewtwo', 'Mew', 'Blastoise', 'Kabutops', 'Grimer', 'Muk', 'Weezing']
+        logging.info('Running notify check for {0}'.format(name))
         url = config[name]['url']
         email = config[name]['email']
         user_list = config[name]['list']
@@ -30,8 +29,7 @@ def main():
         if len(user_list) > 0:
             for poke in user_list:
                 poke_list.append(poke)
-        logging.info(name)
-        logging.info(poke_list)
+
         response = requests.get(url)
 
         try:
